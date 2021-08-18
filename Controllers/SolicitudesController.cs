@@ -73,19 +73,22 @@ namespace Financiera.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    Clientes cliente = db.Clientes.Find(solicitudes.idCliente);
-                    if (cliente.telefono != string.Empty && cliente.apellido != string.Empty && cliente.nombre != string.Empty && solicitudes.monto != null)
-                    {
-                        var appSettings = ConfigurationManager.AppSettings;
-                        solicitudes.idEstado = Convert.ToInt32(appSettings["EnAnalisis"]);
-                    }
-                    else
-                    {
-                        var appSettings = ConfigurationManager.AppSettings;
-                        solicitudes.idEstado = Convert.ToInt32(appSettings["Inicial"]);
-                    }
+                //if (ModelState.IsValid)
+                //{
+                //    Clientes cliente = db.Clientes.Find(solicitudes.idCliente);
+                //    if (cliente.telefono != string.Empty && cliente.apellido != string.Empty && cliente.nombre != string.Empty && solicitudes.monto != null)
+                //    {
+                //        var appSettings = ConfigurationManager.AppSettings;
+                //        solicitudes.idEstado = Convert.ToInt32(appSettings["EnAnalisis"]);
+                //    }
+                //    else
+                //    {
+                //        var appSettings = ConfigurationManager.AppSettings;
+                //        solicitudes.idEstado = Convert.ToInt32(appSettings["Inicial"]);
+                //    }
+
+                    var appSettings = ConfigurationManager.AppSettings;
+                    solicitudes.idEstado = Convert.ToInt32(appSettings["Inicial"]);
 
                     solicitudes.FechaCreacion = DateTime.Now;
                     solicitudes.idUsuario = ((usuarios)Session["User"]).id;
@@ -105,7 +108,7 @@ namespace Financiera.Controllers
                     db.SaveChanges();
                     TempData["Success"] = "Guardado Exitoso";
                     return RedirectToAction("Index");
-                }
+                
 
 
                 ViewBag.idConyuge = new SelectList(db.Clientes, "id", "nombre");
